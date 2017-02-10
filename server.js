@@ -4,7 +4,6 @@ var express = require('express');
 var sprintf = require('sprintf').sprintf;
 var rp = require('./app/response-parser');
 var latest_queries = require('./app/latest-queries');
-var credentials = require('./credentials');
 var app = express();
 
 app.set('port', process.env.PORT || 8080);
