@@ -17,12 +17,16 @@ app.get('/image_search/:query', function(req,res){
 
     var values = {"key":process.env.key,"cx":process.env.cx, "q":req.params.query, "searchType":"image", start:start}
     var url = sprintf("https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s&searchType=%s&start=%s", values.key, values.cx, values.q, values.searchType, values.start);
-    console.log(url);
+    
     request(url, function(error, response, body){
         if(!error && response.statusCode == 200){
-            body_json = JSON.parse(body).items;
+            var body_json = JSON.parse(body);
+            var items = body_json.items;
             latest_queries.addQuery(req.params.query);
-            res.send(rp(body_json));
+            res.send(rp(items));
+            
+        } else {
+            res.send({"error":"API call limit exceeded for the day"});
         }
     })
 })
