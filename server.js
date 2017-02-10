@@ -16,7 +16,7 @@ app.get('/image_search/:query', function(req,res){
         start = req.query.offset*10 + 1;
     }
 
-    var values = {"key":credentials.key,"cx":credentials.cx, "q":req.params.query, "searchType":"image", start:start}
+    var values = {"key":process.env.key,"cx":process.env.cx, "q":req.params.query, "searchType":"image", start:start}
     var url = sprintf("https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s&searchType=%s&start=%s", values.key, values.cx, values.q, values.searchType, values.start);
     console.log(url);
     request(url, function(error, response, body){
